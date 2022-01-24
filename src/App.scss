@@ -1,0 +1,120 @@
+/* Variables */
+
+$bg-colour: #333;
+$primary-colour: white;
+$max-window-width: 500px;
+
+/* Mixins */
+
+@mixin centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App {
+  width: 95vw;
+  max-width: $max-window-width;
+  height: 95vh;
+  border: 1px solid red;
+}
+
+/* Menu Styling */
+.menu {
+  background-color: #666;
+  // color: $primary-colour;
+  // height: 50%;
+  // width: 50%;
+  // margin: auto;
+  // max-width: $max-window-width;
+}
+
+.numericOptionContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  
+  .menuSetting {
+    font-size: 1.1rem;
+  }
+}
+
+.numberSelector {
+  color: $bg-colour;
+  width: 35%;
+}
+
+/* Keyboard Styling */
+
+.keyboardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid $primary-colour;
+  border-radius: 10px;
+}
+
+.keyboardRow {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1.5%;
+}
+
+.keyboardKey {
+  cursor: pointer;
+  @include centered;
+  min-width: 8%;
+  height: 6vh;
+  min-height: 100%;
+  border: 1px solid $primary-colour;
+  border-radius: 5px;
+  background-color: $primary-colour;
+  margin-left: 5px;
+}
+
+.keyboardKey:active {
+  background-color: $bg-colour;
+  border-color: $bg-colour;
+}
+
+.keyboardIcon {
+  padding: 0px 2px;
+}
+
+.keyboardKeyIcon {
+  width: 90%;
+  height: 100%;
+}
+
+.keyboardKeyText {
+  color: $bg-colour;
+  font-weight: bold;
+  padding: 0px 7px;
+  font-size: 1em;
+}
+
+/* Word Box Styling */
+
+.wordContainer {
+  padding-top: 10%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.letterBox {
+  @include centered;
+  border: 1px solid $primary-colour;
+  width: 40px;
+  height: 40px;
+  margin: 1%;
+  border-radius: 5px;
+}
+
+.letterBoxLetter {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
