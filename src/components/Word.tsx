@@ -2,18 +2,19 @@ import { useEffect, useState } from 'react'
 import LetterBox from './LetterBox'
 
 export interface WordProps {
+    word?: string
     wordLength: number
-    word: string
+    isActive?: boolean
 }
 
-const Word = ({ word, wordLength }: WordProps) => {
+const Word = ({ word = '', wordLength, isActive = false }: WordProps) => {
 
     const [letterBoxes, setLetterBoxes] = useState<JSX.Element[]>()
     
     const getBoxes = (): void => {
         const boxes: JSX.Element[] = []
         for (let index = 0; index < wordLength; index++)
-            boxes.push(<LetterBox letter={word[index]} key={`letterBox${index}`}/>)
+            boxes.push(<LetterBox letter={word[index]} isActive={isActive} key={`letterBox${index}`}/>)
         setLetterBoxes(boxes)
     }
 

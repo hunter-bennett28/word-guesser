@@ -1,8 +1,12 @@
 /* Variables */
 
-$bg-colour: #333;
+$base-colour: #333;
 $primary-colour: white;
+$secondary-colour: #11d411;
+$warning-colour: #f3de1d;
 $max-window-width: 500px;
+$toast-slide-animation-time: 3s;
+$toast-duration: 3s;
 
 /* Mixins */
 
@@ -13,36 +17,114 @@ $max-window-width: 500px;
 }
 
 .App {
-  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 87vw;
   max-width: $max-window-width;
-  height: 95vh;
-  border: 1px solid red;
+  height: 92vh;
+  border-radius: 25px;
+  padding: 15px;
+
+  background: linear-gradient(150deg, $base-colour, scale-color($base-colour, $lightness: 20%))
 }
 
 /* Menu Styling */
-.menu {
-  background-color: #666;
-  // color: $primary-colour;
-  // height: 50%;
-  // width: 50%;
-  // margin: auto;
-  // max-width: $max-window-width;
-}
 
-.numericOptionContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  
-  .menuSetting {
-    font-size: 1.1rem;
+.menuContainer {
+  @include centered;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+
+  .footnote {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 2%;
+  }
+
+  a {
+    color: black;
   }
 }
 
-.numberSelector {
-  color: $bg-colour;
-  width: 35%;
+.menu {
+  background-color: #666;
+  @include centered;
+  flex-direction: column;
+  color: $primary-colour;
+  width: 80%;
+  max-width: $max-window-width - 50px;
+  padding: 3%;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px -1px black,
+    0px 4px 5px 0px #222, 0px 1px 10px 0px #111;
+
+  h1 {
+    margin: 0px 0px 5% 0px;
+    background-color: $primary-colour;
+    color: $base-colour;
+    border-radius: 10px;
+    padding: 0.5%;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .titleContainer {
+    margin-bottom: 5%;
+    text-align: center;
+  }
+
+  .numericOptionContainer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 100%;
+    
+    .menuSetting {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .numberSelector {
+    color: $base-colour;
+    width: 35%;
+    min-width: 80px;
+    margin-bottom: 5%;
+  }
+
+  .warning {
+    color: $warning-colour;
+  }
+
+  .secondary {
+    color: $secondary-colour;
+  }
+
+  .button {
+    cursor: pointer;
+    @include centered;
+    background-color: $secondary-colour;
+    border-radius: 10px;
+    height: 4vh;
+    min-height: 40px;
+    width: 40%;
+    font-weight: 500;
+    font-size: 1.1rem;
+    box-shadow: 0px 2px 4px -1px black;
+  }
+
+  .button:active {
+    box-shadow: none;
+    background-color: scale-color($secondary-colour, $lightness: -30%);
+  }
 }
 
 /* Keyboard Styling */
@@ -54,46 +136,46 @@ $max-window-width: 500px;
   padding: 5px;
   border: 1px solid $primary-colour;
   border-radius: 10px;
-}
 
-.keyboardRow {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 1.5%;
-}
-
-.keyboardKey {
-  cursor: pointer;
-  @include centered;
-  min-width: 8%;
-  height: 6vh;
-  min-height: 100%;
-  border: 1px solid $primary-colour;
-  border-radius: 5px;
-  background-color: $primary-colour;
-  margin-left: 5px;
-}
-
-.keyboardKey:active {
-  background-color: $bg-colour;
-  border-color: $bg-colour;
-}
-
-.keyboardIcon {
-  padding: 0px 2px;
-}
-
-.keyboardKeyIcon {
-  width: 90%;
-  height: 100%;
-}
-
-.keyboardKeyText {
-  color: $bg-colour;
-  font-weight: bold;
-  padding: 0px 7px;
-  font-size: 1em;
+  .keyboardRow {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1.5%;
+  }
+  
+  .keyboardKey {
+    cursor: pointer;
+    @include centered;
+    min-width: 8%;
+    height: 6vh;
+    min-height: 100%;
+    border: 1px solid $primary-colour;
+    border-radius: 5px;
+    background-color: $primary-colour;
+    margin-left: 5px;
+  }
+  
+  .keyboardKey:active {
+    background-color: $base-colour;
+    border-color: $base-colour;
+  }
+  
+  .keyboardIcon {
+    padding: 0px 2px;
+  }
+  
+  .keyboardKeyIcon {
+    width: 90%;
+    height: 100%;
+  }
+  
+  .keyboardKeyText {
+    color: $base-colour;
+    font-weight: bold;
+    padding: 0px 7px;
+    font-size: 1em;
+  }
 }
 
 /* Word Box Styling */
@@ -103,6 +185,9 @@ $max-window-width: 500px;
   display: flex;
   justify-content: center;
   width: 100%;
+  margin: 0.5%;
+  padding: 0;
+  flex-grow: 4;
 }
 
 .letterBox {
@@ -110,11 +195,51 @@ $max-window-width: 500px;
   border: 1px solid $primary-colour;
   width: 40px;
   height: 40px;
-  margin: 1%;
+  margin: 0.5% 1%;
   border-radius: 5px;
+
+  &.active {
+    box-shadow: 0px 2px 4px -1px black,
+      0px 4px 5px 0px #222, 0px 1px 10px 0px #111;
+  }
 }
 
 .letterBoxLetter {
   font-weight: 600;
   font-size: 1.3rem;
+}
+
+/* Toast Styling */
+.toastContainer {
+  @include centered;
+  width: 89vw;
+  max-width: $max-window-width;
+  height: 8%;
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px -1px black,
+    0px 4px 5px 0px #222, 0px 1px 10px 0px #111;
+    background-color: $primary-colour;
+  color: $base-colour;
+  font-size: 1.5rem;
+  animation: $toast-slide-animation-time slide-in-and-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-in-and-out {
+  0% {
+    transform: translateY(-500px);
+  }
+
+  10% {
+    transform: translateY(0%);
+  }
+
+  90% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-500px);
+  }
 }
