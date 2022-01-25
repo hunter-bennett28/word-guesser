@@ -176,12 +176,6 @@ function App() {
             { state.showMenu && 
                 <Menu isOpen={state.showMenu} startGame={startGame} />
             }
-            {/* { state.finished &&
-                <EndModal
-                    success={state.attempts[state.attempts.length - 1] === state.word}
-                    words={getWordComponents()}
-                />
-            } */}
             <div className='wordsContainer'>
                 { getWordComponents() }
             </div>
@@ -199,7 +193,6 @@ function App() {
                     />
                 )
             }
-            {/* <p>{state.word}</p> */}
         </div>
     )
 }

@@ -1,4 +1,3 @@
-import { KeyboardEventHandler } from 'react';
 import { qwertyKeyRows } from '../resources/constants'
 import KeyboardKey, { KeyContentType } from './KeyboardKey'
 
@@ -11,10 +10,7 @@ export interface KeyboardProps {
 }
 
 const Keyboard = ({ onLetterClick, onSubmit, onBackspace }: KeyboardProps) => {
-    // const onTypeLetter = (e) => {
-    
-    // }
-    
+
     return (
         <div className='keyboardContainer'>
             <div className='keyboardRow keyboardRowOne'>
