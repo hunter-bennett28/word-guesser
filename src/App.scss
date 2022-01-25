@@ -31,7 +31,7 @@ $toast-duration: 3s;
 
 /* Menu Styling */
 
-.menuContainer {
+.modalContainer {
   @include centered;
   position: absolute;
   width: 100vw;
@@ -241,5 +241,68 @@ $toast-duration: 3s;
 
   100% {
     transform: translateY(-500px);
+  }
+}
+
+/* End Modal Styling */
+
+.endOptionsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: $max-window-width;
+  height: 20%;
+  background-color: $base-colour;
+  border-radius: 10px;
+  padding: 5%;
+
+  .resultIconContainer {
+    @include centered;
+
+    border-radius: 50%;
+    width: 15vw;
+    min-width: 15vw;
+    height: 15vw;
+    min-height: 15vw;
+    margin: 10% 0px 10%;
+
+    &.success {
+      background-color: $secondary-colour;
+    }
+
+    &.failure {
+      background-color: rgb(236, 28, 28);
+    }
+  }
+
+  .checkmark {
+    stroke: white;
+    fill: none;
+    width: 70%;
+    height: 70%;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3px;
+  }
+
+  .iconButton {
+    @include centered;
+    flex-direction: column;
+    cursor: pointer;
+    height: 40%;
+    width: 30%;
+    color: white;
+
+    .iconButtonImage {
+      height: 70%;
+      width: auto;
+      margin-top: 2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin: 5px 0px 5px;
+    }
   }
 }

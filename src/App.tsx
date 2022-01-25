@@ -6,14 +6,15 @@ import Tutorial from './components/Tutorial'
 import Word from './components/Word'
 import WordData from './resources/words.json'
 import { qwertyKeyRows, ColourCodes } from './resources/constants'
-import { toast, ToastContainer } from 'react-toastify'
+import EndOptions from './components/EndOptions'
 
 interface AppState {
     wordLength: number
     numAttempts: number
     attempts: string[]
+    finished: boolean
     currentInput: string
-    word?: string
+    word: string
     showTutorial: boolean
     showMenu: boolean
     showToast: boolean
@@ -24,7 +25,9 @@ const initialState: AppState = {
     wordLength: 5,
     numAttempts: 6,
     attempts: [],
+    finished: false,
     currentInput: '',
+    word: '',
     showTutorial: true,
     showMenu: true,
     showToast: false,
@@ -47,7 +50,7 @@ function App() {
     const getWordComponents = (): JSX.Element[] => {
         const wordComponents: JSX.Element[] = []
         for (let i = 0; i < state.numAttempts; i++) {
-            const isActive = i === state.attempts.length
+            const isActive = i === state.attempts.length && !state.finished
             wordComponents.push(
                 <Word
                     word={isActive ? state.currentInput : state.attempts[i] }
@@ -59,27 +62,70 @@ function App() {
         return wordComponents
     }
 
-    const startGame = () => {
+    /**
+     * 
+     */
+    const startGame = (wordLength = state.wordLength, numAttempts = state.numAttempts): void => {
         // Reset state of each letter
         qwertyKeyRows.forEach((row) => {
             row.forEach((letter) => letter.match = ColourCodes.unchecked)
         })
 
         // Choose a word
-        const wordsArray = WordData.words[state.wordLength - WORD_LENGTH_OFFSET]
+        const wordsArray = WordData.words[wordLength - WORD_LENGTH_OFFSET]
         const word = wordsArray[Math.floor(Math.random() * wordsArray.length)]
-        setState({ showTutorial: false, showMenu: false, word, attempts: [], currentInput: '' })
+        setState({
+            showTutorial: false,
+            showMenu: false,
+            word,
+            attempts: [],
+            numAttempts,
+            wordLength,
+            currentInput: '',
+            finished: false
+        })
     }
 
-    const finishGame = () => {
-
+    const finishGame = (): void => {
+        setState({ finished: true, })
     }
 
-    /* Configuration Handlers */
-
-    const setWordLength = (count: number): void => { setState({ wordLength: count }) }
+    /**
+     * Tests the user input, assigning match state of each entered letter in the Word
+     * bow and keyboard keys
+     * @returns {boolean} - true if the user-entered word matches the selected word
+     */
+    const testUserInput = (): boolean => {
+        const { currentInput: userWord, word } = state
+        for (let i = 0; i < state.wordLength; i++) {
+            const ch: string = userWord[i].toLowerCase()
+            let result: ColourCodes = ColourCodes.noMatch
+            if (word[i] === ch)
+                result = ColourCodes.match
+            else if (word.includes(ch))
+                result = ColourCodes.misplaced
+            setCharacterResult(ch.toUpperCase(), result)
+        }
     
-    const setNumAttempts = (count: number): void => { setState({ numAttempts: count }) }
+        return userWord.toLowerCase() === word
+    }
+
+    /**
+     * Finds the user-entered letter in the qwerty row data and sets its match result against the word
+     * @param char - the character to set the result of
+     * @param result - the colour to set the letter box and keyboard key to
+     */
+    const setCharacterResult = (char: string, result: ColourCodes): void => {
+        qwertyKeyRows.find((wordArray, i) => {
+            return wordArray.find(({ letter }, j) => {
+                const match = letter === char
+                match && (qwertyKeyRows[i][j].match = result)
+                return match
+            })
+        })
+    }
+
+    const openSettings = (): void => { setState({ showMenu: true }) }
 
     /* Keyboard Handlers */
     // Handler for user entering a key by clicking on the virtual keyboard
@@ -90,14 +136,23 @@ function App() {
 
     // Handler for user clicking the submit key on the virtual keyboard
     const handleSubmitClick = (): void => {
-        if (state.attempts.length < state.numAttempts) {
+        // Only process button if user entry is still allowed and complete
+        if (state.currentInput.length === state.wordLength && state.attempts.length < state.numAttempts) {
             const wordPool = WordData.words[state.wordLength - WORD_LENGTH_OFFSET]
-            if (!wordPool.includes(state.currentInput) && !state.showToast) {
+            // Ensure word is valid
+            if (!wordPool.includes(state.currentInput.toLowerCase()) && !state.showToast) {
                 setState({ showToast: true, toastMessage: 'Not A Valid Word!' })
                 setTimeout(() => setState({ showToast: false, toastMessage: '' }), TOAST_TIME)
                 return
             }
-            if (state.currentInput === state.word)
+            
+            testUserInput()
+            const attempts = [...state.attempts, state.currentInput]
+            setState({ attempts, currentInput: '', finished: attempts.length === state.numAttempts })
+
+            
+            // Check for success
+            if (state.currentInput.toLowerCase() === state.word) 
                 finishGame()
         }
     }
@@ -119,17 +174,32 @@ function App() {
             }
             <Tutorial />
             { state.showMenu && 
-                <Menu isOpen={state.showMenu} startGame={startGame} setWordLength={setWordLength} setAttempts={setNumAttempts} />
+                <Menu isOpen={state.showMenu} startGame={startGame} />
             }
+            {/* { state.finished &&
+                <EndModal
+                    success={state.attempts[state.attempts.length - 1] === state.word}
+                    words={getWordComponents()}
+                />
+            } */}
             <div className='wordsContainer'>
                 { getWordComponents() }
             </div>
-            <Keyboard
-                onLetterClick={handleLetterClick}
-                onSubmit={handleSubmitClick}
-                onBackspace={handleBackspaceClick}
-            />
-
+            { state.finished ? (
+                    <EndOptions
+                        success={state.attempts[state.attempts.length - 1] === state.word}
+                        changeSettings={openSettings}
+                        replay={startGame}
+                    />
+                ) : (
+                    <Keyboard
+                        onLetterClick={handleLetterClick}
+                        onSubmit={handleSubmitClick}
+                        onBackspace={handleBackspaceClick}
+                    />
+                )
+            }
+            {/* <p>{state.word}</p> */}
         </div>
     )
 }

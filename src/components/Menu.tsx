@@ -1,4 +1,8 @@
+import { useState } from 'react'
 import Select, { ActionMeta, SingleValue } from 'react-select'
+
+const DEFAULT_WORD_LENGTH = 5
+const DEFAULT_ATTEMPTS = 6
 
 const selectOptions = [
     { value: 3, label: '3' },
@@ -13,12 +17,15 @@ const selectOptions = [
 
 export interface MenuProps {
     isOpen: boolean
-    startGame: () => void
-    setWordLength: (length: number) => void
-    setAttempts: (attempts: number) => void
+    startGame: (wordLength?: number, attempts?: number) => void
+    // setWordLength: (length: number) => void
+    // setAttempts: (attempts: number) => void
 }
 
-const Menu = ({ isOpen, startGame, setWordLength, setAttempts }: MenuProps) => {
+const Menu = ({ isOpen, startGame }: MenuProps) => {
+    const [wordLength, setWordLength] = useState<number>(DEFAULT_WORD_LENGTH)
+    const [attempts, setAttempts] = useState<number>(DEFAULT_ATTEMPTS)
+
     const handleWordLengthChange = (
         newValue: SingleValue<{ value: number; label: string }>,
         _: ActionMeta<{ value: number; label: string }>
@@ -34,7 +41,7 @@ const Menu = ({ isOpen, startGame, setWordLength, setAttempts }: MenuProps) => {
     }
 
     return (
-        <div className='menuContainer'>
+        <div className='modalContainer'>
             <div className='menu'>
                 <div className='titleContainer'>
                     <h1>WORD G
@@ -64,7 +71,7 @@ const Menu = ({ isOpen, startGame, setWordLength, setAttempts }: MenuProps) => {
                         onChange={handleAttemptsChange}
                     />
                 </div>
-                <div className='button' onClick={() => startGame()}>
+                <div className='button' onClick={() => startGame(wordLength, attempts)}>
                     <p>BEGIN</p>
                 </div>
             </div>

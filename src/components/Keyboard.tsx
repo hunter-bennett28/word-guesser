@@ -1,15 +1,20 @@
+import { KeyboardEventHandler } from 'react';
 import { qwertyKeyRows } from '../resources/constants'
 import KeyboardKey, { KeyContentType } from './KeyboardKey'
 
 const [rowOne, rowTwo, rowThree] = qwertyKeyRows;
 
 export interface KeyboardProps {
-    onLetterClick: Function
-    onSubmit: Function
-    onBackspace: Function
+    onLetterClick: (letter: string) => void
+    onSubmit: () => void
+    onBackspace: () => void
 }
 
 const Keyboard = ({ onLetterClick, onSubmit, onBackspace }: KeyboardProps) => {
+    // const onTypeLetter = (e) => {
+    
+    // }
+    
     return (
         <div className='keyboardContainer'>
             <div className='keyboardRow keyboardRowOne'>

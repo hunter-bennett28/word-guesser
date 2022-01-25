@@ -13,13 +13,13 @@ const Word = ({ word = '', wordLength, isActive = false }: WordProps) => {
     
     const getBoxes = (): void => {
         const boxes: JSX.Element[] = []
-        for (let index = 0; index < wordLength; index++)
-            boxes.push(<LetterBox letter={word[index]} isActive={isActive} key={`letterBox${index}`}/>)
+        for (let i = 0; i < wordLength; i++)
+            boxes.push(<LetterBox letter={word[i]} isActive={isActive} key={`letterBox${i}`}/>)
         setLetterBoxes(boxes)
     }
 
     useEffect(getBoxes, [])
-    useEffect(getBoxes, [wordLength, word])
+    useEffect(getBoxes, [wordLength, word, isActive])
 
     return (
         <div className='wordContainer'>

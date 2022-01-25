@@ -1,8 +1,9 @@
 export const enum ColourCodes {
     unchecked = 'white',
     match = '#11d411',
-    noMatch = '#333',
-    misplaced = '#f3de1d'
+    noMatch = '#444',
+    misplaced = '#f3de1d',
+    empty = '#333'
 }
 
 export interface LetterMatch {
