@@ -86,8 +86,11 @@ function App() {
         })
     }
 
-    const finishGame = (): void => {
-        setState({ finished: true, })
+    const showToastMessage = (message: string): void => {
+        if (!state.showToast) {
+            setState({ showToast: true, toastMessage: message })
+            setTimeout(() => setState({ showToast: false, toastMessage: '' }), TOAST_TIME)
+        }
     }
 
     /**
@@ -125,6 +128,10 @@ function App() {
         })
     }
 
+    const closeTutorial = (): void => { setState({ showTutorial: false }) }
+
+    const openTutorial = (): void => { setState({ showTutorial: true }) }
+
     const openSettings = (): void => { setState({ showMenu: true }) }
 
     /* Keyboard Handlers */
@@ -140,21 +147,18 @@ function App() {
         if (state.currentInput.length === state.wordLength && state.attempts.length < state.numAttempts) {
             const wordPool = WordData.words[state.wordLength - WORD_LENGTH_OFFSET]
             // Ensure word is valid
-            if (!wordPool.includes(state.currentInput.toLowerCase()) && !state.showToast) {
-                setState({ showToast: true, toastMessage: 'Not A Valid Word!' })
-                setTimeout(() => setState({ showToast: false, toastMessage: '' }), TOAST_TIME)
+            if (!wordPool.includes(state.currentInput.toLowerCase())) {
+                showToastMessage('Not A Valid Word!')
                 return
             }
             
-            testUserInput()
+            // Test for success and append attempt
+            const correctWord = testUserInput()
             const attempts = [...state.attempts, state.currentInput]
-            setState({ attempts, currentInput: '', finished: attempts.length === state.numAttempts })
-
-            
-            // Check for success
-            if (state.currentInput.toLowerCase() === state.word) 
-                finishGame()
+            setState({ attempts, currentInput: '', finished: correctWord || attempts.length === state.numAttempts })
         }
+        else if (state.currentInput.length !== state.wordLength)
+            showToastMessage('Word Too Short!')
     }
 
     // Handler for user clicking the backspace key on the virtual keyboard
@@ -165,34 +169,51 @@ function App() {
         }
     }
 
+    const handleKeyPress = (event: React.KeyboardEvent<any>) => {
+        console.log('in key press', event)
+        const key = event.key.toUpperCase()
+        if (key.match(/^[A-Z]$/i))
+            handleLetterClick(key)
+        else if (key === 'BACKSPACE')
+            handleBackspaceClick()
+        else if (key === 'ENTER')
+            handleSubmitClick()
+    }
+
     return (
-        <div className='App'>
-            { state.showToast &&
-                <div className='toastContainer'>
-                    { state.toastMessage }
+        <div className='App' tabIndex={0} onKeyDown={handleKeyPress}>
+            <div className='gameWindow'>
+                { state.showToast &&
+                    <div className='toastContainer'>
+                        { state.toastMessage }
+                    </div>
+                }
+                { state.showTutorial &&
+                    <Tutorial close={closeTutorial} />
+                }
+                { state.showMenu && !state.showTutorial &&
+                    <Menu startGame={startGame} showTutorial={openTutorial} />
+                }
+                <div className='wordsContainer'>
+                    <div className='wordsBox'>
+                        { getWordComponents() }
+                    </div>
                 </div>
-            }
-            <Tutorial />
-            { state.showMenu && 
-                <Menu isOpen={state.showMenu} startGame={startGame} />
-            }
-            <div className='wordsContainer'>
-                { getWordComponents() }
+                { state.finished ? (
+                        <EndOptions
+                            success={state.attempts[state.attempts.length - 1]?.toLowerCase() === state.word}
+                            changeSettings={openSettings}
+                            replay={startGame}
+                        />
+                    ) : (
+                        <Keyboard
+                            onLetterClick={handleLetterClick}
+                            onSubmit={handleSubmitClick}
+                            onBackspace={handleBackspaceClick}
+                        />
+                    )
+                }
             </div>
-            { state.finished ? (
-                    <EndOptions
-                        success={state.attempts[state.attempts.length - 1] === state.word}
-                        changeSettings={openSettings}
-                        replay={startGame}
-                    />
-                ) : (
-                    <Keyboard
-                        onLetterClick={handleLetterClick}
-                        onSubmit={handleSubmitClick}
-                        onBackspace={handleBackspaceClick}
-                    />
-                )
-            }
         </div>
     )
 }

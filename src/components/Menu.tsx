@@ -16,13 +16,11 @@ const selectOptions = [
 ]
 
 export interface MenuProps {
-    isOpen: boolean
     startGame: (wordLength?: number, attempts?: number) => void
-    // setWordLength: (length: number) => void
-    // setAttempts: (attempts: number) => void
+    showTutorial: () => void
 }
 
-const Menu = ({ isOpen, startGame }: MenuProps) => {
+const Menu = ({ startGame, showTutorial }: MenuProps) => {
     const [wordLength, setWordLength] = useState<number>(DEFAULT_WORD_LENGTH)
     const [attempts, setAttempts] = useState<number>(DEFAULT_ATTEMPTS)
 
@@ -42,6 +40,7 @@ const Menu = ({ isOpen, startGame }: MenuProps) => {
 
     return (
         <div className='modalContainer'>
+            <div className='menuShowTutorial' onClick={showTutorial}>i</div>
             <div className='menu'>
                 <div className='titleContainer'>
                     <h1>WORD G

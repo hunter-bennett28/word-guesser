@@ -2,7 +2,7 @@ export const enum ColourCodes {
     unchecked = 'white',
     match = '#11d411',
     noMatch = '#444',
-    misplaced = '#f3de1d',
+    misplaced = '#d8c628',
     empty = '#333'
 }
 
