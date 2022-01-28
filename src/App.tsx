@@ -75,6 +75,7 @@ const App = () => {
                     wordLength={ state.wordLength }
                     correctWord={state.word}
                     isActive={isActive}
+                    key={`word${i}`}
                 />
             )
         }
@@ -97,7 +98,7 @@ const App = () => {
         // Choose a word
         const wordsArray = WordData.words[wordLength - WORD_LENGTH_OFFSET]
         const word = wordsArray[Math.floor(Math.random() * wordsArray.length)]
-        
+
         // Set word and default state values
         setState({
             showTutorial: false,
@@ -227,7 +228,6 @@ const App = () => {
      * @param {React.KeyboardEvent} event 
      */
     const handleKeyPress = (event: React.KeyboardEvent) => {
-        console.log('in key press', event)
         const key = event.key.toUpperCase()
         if (key.match(/^[A-Z]$/i))
             handleLetterClick(key)
