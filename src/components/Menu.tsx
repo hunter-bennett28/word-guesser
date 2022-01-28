@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import Select, { ActionMeta, SingleValue } from 'react-select'
 
+// Constants
 const DEFAULT_WORD_LENGTH = 5
 const DEFAULT_ATTEMPTS = 6
 
+// Select Component Configuration 
 const selectOptions = [
     { value: 3, label: '3' },
     { value: 4, label: '4' },
@@ -20,10 +22,18 @@ export interface MenuProps {
     showTutorial: () => void
 }
 
+/**
+ * A Menu modal for changing the settings of a game including the length of word to guess
+ * and the number of allowed attempts and then running the game itself.
+ * @param {Function} param0.startGame - The callback to use when the user choses to start the game
+ * @param {Function} param0.showTutorial - The callback for the user clicking the info icon
+ * @returns {JSX.Element}
+ */
 const Menu = ({ startGame, showTutorial }: MenuProps) => {
     const [wordLength, setWordLength] = useState<number>(DEFAULT_WORD_LENGTH)
     const [attempts, setAttempts] = useState<number>(DEFAULT_ATTEMPTS)
 
+    // Updates the new value for the word length selected from the Select component
     const handleWordLengthChange = (
         newValue: SingleValue<{ value: number; label: string }>,
         _: ActionMeta<{ value: number; label: string }>
@@ -31,6 +41,7 @@ const Menu = ({ startGame, showTutorial }: MenuProps) => {
         newValue?.value && setWordLength(newValue.value)
     }
 
+    // Updates the new value for the allowed attempts selected from the Select component
     const handleAttemptsChange = (
         newValue: SingleValue<{ value: number; label: string }>,
         _: ActionMeta<{ value: number; label: string }>

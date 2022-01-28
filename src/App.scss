@@ -6,7 +6,6 @@ $secondary-colour: #11d411;
 $warning-colour: #d8c628;
 $max-window-width: 500px;
 $toast-slide-animation-time: 3s;
-$toast-duration: 3s;
 
 /* Mixins */
 
@@ -20,6 +19,10 @@ $toast-duration: 3s;
   @include centered;
   width: 100vw;
   height: 100vh;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .gameWindow {
@@ -67,10 +70,12 @@ $toast-duration: 3s;
     border: 2px solid $base-colour;
     border-radius: 100px;
     width: 5vw;
+    max-width: 50px;
     height: 5vw;
+    max-height: 50px;
     margin: 1%;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 700;
   }
 }
 
@@ -238,6 +243,7 @@ $toast-duration: 3s;
 }
 
 /* Toast Styling */
+
 .toastContainer {
   @include centered;
   width: 89vw;
@@ -252,24 +258,6 @@ $toast-duration: 3s;
   font-size: 1.5rem;
   animation: $toast-slide-animation-time slide-in-and-out;
   animation-fill-mode: forwards;
-}
-
-@keyframes slide-in-and-out {
-  0% {
-    transform: translateY(-500px);
-  }
-
-  10% {
-    transform: translateY(0%);
-  }
-
-  90% {
-    transform: translateY(0%);
-  }
-
-  100% {
-    transform: translateY(-500px);
-  }
 }
 
 /* End Modal Styling */
@@ -289,10 +277,8 @@ $toast-duration: 3s;
     @include centered;
 
     border-radius: 50%;
-    width: 15vw;
-    min-width: 15vw;
-    height: 15vw;
-    min-height: 15vw;
+    width: 12vh;
+    height: 12vh;
     margin: 10% 0px 10%;
 
     &.success {
@@ -347,6 +333,7 @@ $toast-duration: 3s;
   @include centered;
   flex-direction: column;
   width: 80%;
+  max-width: $max-window-width;
   background-color: $base-colour;
   color: $primary-colour;
   padding: 5%;
@@ -362,6 +349,7 @@ $toast-duration: 3s;
 
   hr {
     width: 100%;
+    margin-bottom: 5%;
   }
   
   .closeTutorialButton {
@@ -373,5 +361,25 @@ $toast-duration: 3s;
     color: #aaa;
     font-weight: bold;
     cursor: pointer;
+  }
+}
+
+/* Animations */
+
+@keyframes slide-in-and-out {
+  0% {
+    transform: translateY(-500px);
+  }
+
+  10% {
+    transform: translateY(0%);
+  }
+
+  90% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-500px);
   }
 }

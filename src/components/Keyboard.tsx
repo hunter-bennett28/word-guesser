@@ -9,8 +9,16 @@ export interface KeyboardProps {
     onBackspace: () => void
 }
 
+/**
+ * A virtual keyboard component the user can enter words by clicking that will change
+ * colours on user entry to reflect the result of matching entered letters to the
+ * word being guessed.
+ * @param {Function} param0.onLetterClick - Callback for a user clicking an alpha key
+ * @param {Function} param0.onSubmit - Callback for a user clicking the 'ENTER' key
+ * @param {Function} param0.onBackspace - Callback for a user clicking the backspace key
+ * @returns {JSX.Element}
+ */
 const Keyboard = ({ onLetterClick, onSubmit, onBackspace }: KeyboardProps) => {
-
     return (
         <div className='keyboardContainer'>
             <div className='keyboardRow keyboardRowOne'>

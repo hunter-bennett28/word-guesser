@@ -2,6 +2,11 @@ export interface TutorialProps {
     close: () => void
 }
 
+/**
+ * A modal for giving simple instruction on how to play the game.
+ * @param {Function} param0.close - The callback for the user closing the Tutorial
+ * @returns {JSX.Element}
+ */
 const Tutorial = ({ close }: TutorialProps) => {
     return (
         <div className='modalContainer'>

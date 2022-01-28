@@ -1,20 +1,22 @@
-import { ColourCodes, qwertyKeyRows } from '../resources/constants'
+import { ColourCodes } from '../resources/constants'
 
 export interface LetterBoxProps {
     letter?: string
+    colour: ColourCodes
     isActive?: boolean
 }
 
-const LetterBox = ({ letter = '', isActive = false }: LetterBoxProps) => {
-    let match: ColourCodes = ColourCodes.unchecked
-    qwertyKeyRows.find((row) => {
-        const found = row.find((letterMatch) => letter === letterMatch.letter)
-        found && (match = found.match)
-        return found
-    })
-    const backgroundColor = isActive ? ColourCodes.unchecked : (letter === '' ? ColourCodes.empty : match)
+/**
+ * A single letter component within a word that will display a user input character and
+ * have a background colour portraying its match state.
+ * @param {string?} param0.letter - The letter to be displayed
+ * @param {ColourCodes} param0.colour - The background colour to use
+ * @param {boolean?} param0.isActive - Whether the letter is in a Word component that is being entered
+ * @returns {JSX.Element}
+ */
+const LetterBox = ({ letter = '', colour, isActive = false }: LetterBoxProps) => {
     return (
-        <div className={`letterBox${ isActive ? ' active' : ''}`} style={{ backgroundColor }}>
+        <div className={`letterBox${ isActive ? ' active' : ''}`} style={{ backgroundColor: colour }}>
             <p style={{ color: (isActive ? 'black' : 'white') }}>{letter}</p>
         </div>
     )

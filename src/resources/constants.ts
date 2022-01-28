@@ -1,3 +1,4 @@
+// The colours used to represent different states of an entered letter
 export const enum ColourCodes {
     unchecked = 'white',
     match = '#11d411',
@@ -6,12 +7,14 @@ export const enum ColourCodes {
     empty = '#333'
 }
 
+// Interface for letters and their corresponding colours in Keyboard
 export interface LetterMatch {
     letter: string
     match: ColourCodes
 }
 
-
+// 2D Array of letters to be rendered in the virtual Keyboard component and the
+// colours they should be
 export const qwertyKeyRows: Array<LetterMatch[]> = [
     [
         { letter: 'Q', match: ColourCodes.unchecked },
@@ -25,7 +28,6 @@ export const qwertyKeyRows: Array<LetterMatch[]> = [
         { letter: 'O', match: ColourCodes.unchecked },
         { letter: 'P', match: ColourCodes.unchecked },
     ],
-    // ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
     [
         { letter: 'A', match: ColourCodes.unchecked },
         { letter: 'S', match: ColourCodes.unchecked },
@@ -37,7 +39,6 @@ export const qwertyKeyRows: Array<LetterMatch[]> = [
         { letter: 'K', match: ColourCodes.unchecked },
         { letter: 'L', match: ColourCodes.unchecked },
     ],
-        // ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
     [
         { letter: 'Z', match: ColourCodes.unchecked },
         { letter: 'X', match: ColourCodes.unchecked },
@@ -46,6 +47,5 @@ export const qwertyKeyRows: Array<LetterMatch[]> = [
         { letter: 'B', match: ColourCodes.unchecked },
         { letter: 'N', match: ColourCodes.unchecked },
         { letter: 'M', match: ColourCodes.unchecked },
-    ],
-    // ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
+    ]
 ]
