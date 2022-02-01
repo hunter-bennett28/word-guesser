@@ -15,8 +15,12 @@ export interface LetterBoxProps {
  * @returns {JSX.Element}
  */
 const LetterBox = ({ letter = '', colour, isActive = false }: LetterBoxProps) => {
+    const isMatch = colour === ColourCodes.match || colour === ColourCodes.misplaced
+    let className = 'letterBox'
+    className += isActive ? ' active' : ''
+    className += isMatch ? ' match' : ''
     return (
-        <div className={`letterBox${ isActive ? ' active' : ''}`} style={{ backgroundColor: colour }}>
+        <div className={className} style={{ backgroundColor: colour }}>
             <p style={{ color: (isActive ? 'black' : 'white') }}>{letter}</p>
         </div>
     )

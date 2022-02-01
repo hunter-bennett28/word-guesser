@@ -256,20 +256,23 @@ const App = () => {
                         { getWordComponents() }
                     </div>
                 </div>
-                { state.finished ? (
-                        <EndOptions
-                            success={state.attempts[state.attempts.length - 1]?.toLowerCase() === state.word}
-                            changeSettings={openMenu}
-                            replay={startGame}
-                        />
-                    ) : (
-                        <Keyboard
-                            onLetterClick={handleLetterClick}
-                            onSubmit={handleSubmitClick}
-                            onBackspace={handleBackspaceClick}
-                        />
-                    )
-                }
+                <div className='inputContainer'>
+                    { state.finished ? (
+                            <EndOptions
+                                success={state.attempts[state.attempts.length - 1]?.toLowerCase() === state.word}
+                                changeSettings={openMenu}
+                                replay={startGame}
+                                word={state.word}
+                            />
+                        ) : (
+                            <Keyboard
+                                onLetterClick={handleLetterClick}
+                                onSubmit={handleSubmitClick}
+                                onBackspace={handleBackspaceClick}
+                            />
+                        )
+                    }
+                </div>
             </div>
         </div>
     )
