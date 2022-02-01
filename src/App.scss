@@ -245,8 +245,8 @@ $toast-slide-animation-time: 3s;
   z-index: 0;
 
   &.active {
-    box-shadow: 0px 2px 4px -1px black,
-      0px 4px 5px 0px #222, 0px 1px 10px 0px #111;
+    box-shadow: 0px 2px 3px -1px black,
+      0px 4px 4px 0px #222, 0px 1px 6px 0px #111;
   }
 
   &.match {
@@ -337,12 +337,21 @@ $toast-slide-animation-time: 3s;
     width: 30%;
     color: white;
 
-    .iconButtonImage {
+    .replayIcon {
+      stroke: white;
+      fill: none;
+      width: 70%;
       height: 70%;
-      width: auto;
-      margin-top: 2rem;
+      stroke-width: 2px;
     }
-
+  
+    .settingsIcon {
+      stroke: white;
+      fill: white;
+      width: 70%;
+      height: 70%;
+      stroke-width: 3px;
+    }
   }
 }
 
