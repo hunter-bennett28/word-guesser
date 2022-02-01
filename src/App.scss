@@ -19,6 +19,9 @@ $toast-slide-animation-time: 3s;
   @include centered;
   width: 100vw;
   height: 100vh;
+  padding: 0px;
+  margin: 0px;
+  overflow: auto;
 
   &:focus {
     outline: none;
@@ -31,11 +34,10 @@ $toast-slide-animation-time: 3s;
   justify-content: space-between;
   width: 91vw;
   max-width: $max-window-width;
-  height: 95%;
-  max-height: 94vh;
+  height: 92%;
   border-radius: 25px;
-  padding: 2%;
-  background: linear-gradient(150deg, $base-colour, scale-color($base-colour, $lightness: 20%))
+  // padding: 2%;
+  background: linear-gradient(150deg, $base-colour, scale-color($base-colour, $lightness: 20%));
 }
 
 .inputConainer {
@@ -389,6 +391,36 @@ $toast-slide-animation-time: 3s;
     cursor: pointer;
   }
 }
+
+/* Mobile Styling */
+
+
+@media only screen and (max-width: 500px) {
+  .gameWindow {
+    width: 100%;
+    height: 100vh;
+    border-radius: 25px;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 0px;
+  }
+
+  .keyboardContainer {
+    border: none;
+    padding: 0px 5px;
+
+    .keyboardKey {
+      margin-right: 2px;
+      min-width: 9%;
+      height: 7vh;
+    }
+  }
+  
+  .endOptionsContainer {
+    border-radius: 0px;
+  }
+}
+
 
 /* Animations */
 
