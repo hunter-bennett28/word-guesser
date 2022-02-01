@@ -7,7 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(43, 43, 43);
   height: 100vh;
-  max-height: 100vh;
+}
+
+body, html {
   padding: 0px;
   margin: 0px;
 }

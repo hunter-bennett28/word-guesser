@@ -31,18 +31,19 @@ $toast-slide-animation-time: 3s;
 .gameWindow {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
   width: 91vw;
   max-width: $max-window-width;
   height: 92%;
   border-radius: 25px;
-  // padding: 2%;
   background: linear-gradient(150deg, $base-colour, scale-color($base-colour, $lightness: 20%));
 }
 
-.inputConainer {
-  height: 20%;
-  max-height: 20%;
+.inputContainer {
+  @include centered;
+  height: 25%;
+  max-height: 25%;
+  width: 100%;
 }
 
 /* Menu Styling */
@@ -69,21 +70,9 @@ $toast-slide-animation-time: 3s;
   }
 
   .menuShowTutorial {
-    @include centered;
-    cursor: pointer;
     position: absolute;
     top: 0;
     right: 0;
-    color: $base-colour;
-    border: 2px solid $base-colour;
-    border-radius: 100px;
-    width: 5vw;
-    max-width: 50px;
-    height: 5vw;
-    max-height: 50px;
-    margin: 1%;
-    font-size: 1.2rem;
-    font-weight: 700;
   }
 }
 
@@ -172,6 +161,8 @@ $toast-slide-animation-time: 3s;
   padding: 6px;
   border: 1px solid $primary-colour;
   border-radius: 20px;
+  width: 98%;
+  margin: 1%;
 
   .keyboardRow {
     display: flex;
@@ -292,7 +283,7 @@ $toast-slide-animation-time: 3s;
   height: 100%;
   width: 100%;
   background-color: $base-colour;
-  border-radius: 20px;
+  border-radius: 0px 0px 20px 20px;
 
   p {
     color: $primary-colour;
@@ -309,8 +300,8 @@ $toast-slide-animation-time: 3s;
   .resultIconContainer {
     @include centered;
     border-radius: 50%;
-    width: 11vh;
-    height: 11vh;
+    width: 75px;
+    height: 75px;
     margin: 10% 0px 10%;
 
     &.success {
@@ -415,7 +406,7 @@ $toast-slide-animation-time: 3s;
       height: 7vh;
     }
   }
-  
+
   .endOptionsContainer {
     border-radius: 0px;
   }
