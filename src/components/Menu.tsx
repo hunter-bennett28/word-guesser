@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import Select, { ActionMeta, SingleValue } from 'react-select'
-import InfoIcon from '@mui/icons-material/Info';
-import { IconButton } from '@mui/material';
 
 // Constants
 const DEFAULT_WORD_LENGTH = 5
@@ -53,11 +51,7 @@ const Menu = ({ startGame, showTutorial }: MenuProps) => {
 
     return (
         <div className='modalContainer'>
-            <div className='menuShowTutorial'>
-                <IconButton onClick={showTutorial}>
-                    <InfoIcon fontSize='large' />
-                </IconButton>
-            </div>
+            <div className='menuShowTutorial' onClick={showTutorial}>i</div>
             <div className='menu'>
                 <div className='titleContainer'>
                     <h1>WORD G
